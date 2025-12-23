@@ -1,6 +1,6 @@
 package com.StreamingServer.server.testVideoSender;
 
-import com.StreamingServer.server.utils.LocalVideoSender;
+import com.StreamingServer.server.utils.CopyVideo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -10,9 +10,9 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
-class LocalVideoSenderTest {
+class CopyVideoTest {
 
-    private final LocalVideoSender service = new LocalVideoSender();
+    private final CopyVideo service = new CopyVideo();
 
     @Test
     void shouldCopyVideoDirectlyToDestinyFolder() throws Exception {
@@ -20,8 +20,9 @@ class LocalVideoSenderTest {
         URI source = getSourceVideoFile();
         URI destination = prepareDestinationFile();
 
+
         // Act
-        service.send(source, destination);
+        service.copy(source, destination);
 
         // Assert
         assertVideoWasCopiedCorrectly(source, destination);
