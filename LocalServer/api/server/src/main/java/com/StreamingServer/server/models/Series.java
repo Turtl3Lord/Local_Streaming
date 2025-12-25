@@ -58,15 +58,6 @@ public class Series {
     // Relacionamento com Seasons
     @OneToMany(mappedBy = "series", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private Set<Season> seasons = new HashSet<>();
+    private Set<Seasons> seasons = new HashSet<>();
 
-    // Relacionamento com Genres (Many-to-Many)
-    @ManyToMany
-    @JoinTable(
-            name = "series_genres",
-            joinColumns = @JoinColumn(name = "series_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id")
-    )
-    @Builder.Default
-    private Set<Genre> genres = new HashSet<>();
 }
