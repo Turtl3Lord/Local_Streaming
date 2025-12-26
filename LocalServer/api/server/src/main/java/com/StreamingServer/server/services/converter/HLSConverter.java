@@ -1,15 +1,15 @@
-package com.StreamingServer.server.utils;
+package com.StreamingServer.server.services.converter;
 
 import com.StreamingServer.server.enums.OutputType;
 import com.StreamingServer.server.interfaces.IVideoConverter;
+import com.StreamingServer.server.utils.HLSUtils;
+import com.StreamingServer.server.utils.PathUtils;
 import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HLSConverter implements IVideoConverter {
     // Default values for HLS parameters

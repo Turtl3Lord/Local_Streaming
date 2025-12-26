@@ -12,7 +12,7 @@ public class HLSUtils {
 
 
 
-    static void configureCodecs(FFmpegFrameRecorder recorder,
+   public static void configureCodecs(FFmpegFrameRecorder recorder,
                                  OutputType outputType,
                                  String videoCodecParam,
                                  String audioCodecParam) {
@@ -60,7 +60,7 @@ public class HLSUtils {
         }
     }
 
-    static String[] collectSegments(String outputPath, String baseName) {
+   public static String[] collectSegments(String outputPath, String baseName) {
         File dir = new File(outputPath);
         List<String> segments = new ArrayList<>();
         segments.add(outputPath + File.separator + baseName + ".m3u8");

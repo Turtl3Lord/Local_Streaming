@@ -1,4 +1,4 @@
-package com.StreamingServer.server.services.videoSender.LocalVideoSender;
+package com.StreamingServer.server.services.LocalVideoSender;
 
 import com.StreamingServer.server.interfaces.ISendVideoToServer;
 

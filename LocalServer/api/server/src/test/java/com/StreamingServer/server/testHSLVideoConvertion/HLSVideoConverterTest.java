@@ -2,7 +2,7 @@ package com.StreamingServer.server.testHSLVideoConvertion;
 
 import com.StreamingServer.server.enums.OutputType;
 import com.StreamingServer.server.interfaces.IVideoConverter;
-import com.StreamingServer.server.utils.HLSConverter;
+import com.StreamingServer.server.services.converter.HLSConverter;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;

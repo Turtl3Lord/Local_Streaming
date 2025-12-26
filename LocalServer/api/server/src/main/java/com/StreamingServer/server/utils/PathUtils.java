@@ -4,7 +4,7 @@ import java.nio.file.Path;
 
 public class PathUtils {
 
-    static void validatePaths(String inputPath, String outputPath){
+  public  static void validatePaths(String inputPath, String outputPath){
         if (inputPath == null || inputPath.isEmpty()) {
             throw new IllegalArgumentException("Input path cannot be null or empty");
         }
@@ -13,7 +13,7 @@ public class PathUtils {
         }
     };
 
-   static  String getOutputFileName(String inputPath) {
+   public static  String getOutputFileName(String inputPath) {
         Path inputFilePath = Path.of(inputPath);
         String fileName = inputFilePath.getFileName().toString();
         int dotIndex = fileName.lastIndexOf('.');
