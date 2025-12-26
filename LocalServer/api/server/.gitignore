@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+src/test/videosDestiny/**
+src/test/resources/video/origin/*
 ### STS ###
 .apt_generated
 .classpath
