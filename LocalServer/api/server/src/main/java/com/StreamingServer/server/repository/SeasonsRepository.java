@@ -1,6 +1,6 @@
 package com.StreamingServer.server.repository;
 
-import com.StreamingServer.server.models.Movies;
+import com.StreamingServer.server.models.Seasons;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MoviesRepository extends JpaRepository<Movies, Long> {
-    List<Movies> findAll();
-    Optional<Movies> findById(Long id);
- }
+public interface SeasonsRepository extends JpaRepository<Seasons, Long> {
+    List<Seasons> findBySeriesId(Long seriesId);
+}
