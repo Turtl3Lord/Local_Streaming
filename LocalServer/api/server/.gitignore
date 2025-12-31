@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 
 src/test/videosDestiny/**
-src/test/resources/video/origin/*
+!src/test/videosDestiny/.gitkeep
 ### STS ###
 .apt_generated
 .classpath
