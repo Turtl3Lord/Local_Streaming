@@ -24,7 +24,7 @@ Este repositório contém o serviço de backend para uma plataforma local de str
 
 ## Pré-requisitos
 
-* **Java 17** ou superior.
+* **Java 21** ou superior.
 * **Maven** para gerenciamento de dependências e build do projeto.
 * **PostgreSQL**: Uma instância em execução de um banco de dados PostgreSQL.
 * **FFmpeg**: As bibliotecas nativas do FFmpeg devem estar instaladas no sistema onde a aplicação será executada, pois o JavaCV depende delas para o processamento de vídeo.
@@ -43,6 +43,24 @@ cd local_streaming/LocalServer/api/server
 ### 2. Configurar o Banco de Dados
 
 Abra o arquivo `src/main/resources/application.properties` e adicione os detalhes de conexão do seu banco de dados PostgreSQL.
+
+o usuário que usar precisar ter todos os privilegios garantidos no schema public do dabatabase que criar.
+
+no terminal, entre com o usuário postgres(padrão. use outro caso tenha alterado em algum momento):
+
+```bash
+psql -U postgres
+```
+
+após isso, troque para o database que foi criado(caso não, crie-o primeiro) com o comando:
+```bash
+\c database_name
+```
+e garanta todos os privilégios para o usuário que será usado:
+```bash
+GRANT USAGE, CREATE ON SCHEMA public TO username;
+```
+
 
 ```properties
 spring.application.name=server
