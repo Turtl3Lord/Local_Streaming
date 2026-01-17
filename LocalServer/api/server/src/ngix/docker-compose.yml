@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:stable
+    container_name: nginx_streaming
+    ports:
+      - "80:80"
+    volumes:
+      - ./midia:/data/midia:ro
+      - ./conf.d:/etc/nginx/conf.d:ro
+    restart: unless-stopped
