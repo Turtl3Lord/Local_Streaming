@@ -6,10 +6,16 @@ import com.StreamingServer.server.repository.MoviesRepository;
 import com.StreamingServer.server.services.MovieProcessingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -29,11 +35,72 @@ public class LocalServerController {
     }
 
     // Create a new movie
-    @PostMapping("/movies")
-    public ResponseEntity<?> createMovie(@RequestBody MovieDTO movieDTO) {
+    @PostMapping(value = "/movies", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createMovie(
+            @RequestPart("file") MultipartFile file,
+            @RequestPart("title") String title,
+            @RequestPart(value = "description", required = false) String description,
+            @RequestPart(value = "coverUrl", required = false) String coverUrl,
+            @RequestPart(value = "durationMinutes", required = false) Integer durationMinutes,
+            @RequestPart(value = "releaseYear", required = false) Integer releaseYear) {
         try {
+            // Validar se o arquivo foi enviado
+            if (file == null || file.isEmpty()) {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", "Erro de validação");
+                errorResponse.put("message", "Arquivo de vídeo é obrigatório");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            }
+
+            // Validar se é um arquivo de vídeo
+            String contentType = file.getContentType();
+            if (contentType == null || !contentType.startsWith("video/")) {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", "Erro de validação");
+                errorResponse.put("message", "O arquivo deve ser um vídeo");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            }
+
+            // Criar pasta pending se não existir
+            String pendingDir = "src" + File.separator + "pending";
+            File pendingDirectory = new File(pendingDir);
+            if (!pendingDirectory.exists()) {
+                pendingDirectory.mkdirs();
+            }
+
+            // Gerar nome único para o arquivo (timestamp + nome original)
+            String originalFilename = file.getOriginalFilename();
+            if (originalFilename == null || originalFilename.isEmpty()) {
+                originalFilename = "video_" + System.currentTimeMillis();
+            }
+            String uniqueFilename = System.currentTimeMillis() + "_" + originalFilename;
+            String pendingFilePath = pendingDir + File.separator + uniqueFilename;
+            Path pendingPath = Paths.get(pendingFilePath);
+
+            // Salvar arquivo na pasta pending
+            Files.copy(file.getInputStream(), pendingPath);
+
+            // Criar MovieDTO com os dados recebidos
+            MovieDTO movieDTO = MovieDTO.builder()
+                    .title(title)
+                    .description(description)
+                    .coverUrl(coverUrl)
+                    .durationMinutes(durationMinutes)
+                    .releaseYear(releaseYear)
+                    .build();
+
             // Processar filme completo: conversão, cópia e salvamento no DB
-            Movies saved = movieProcessingService.processMovie(movieDTO);
+            // Passar o caminho relativo do arquivo salvo
+            Movies saved = movieProcessingService.processMovie(movieDTO, pendingFilePath);
+
+            // Remover arquivo da pasta pending após processamento bem-sucedido
+            try {
+                Files.deleteIfExists(pendingPath);
+            } catch (IOException e) {
+                // Log do erro, mas não interrompe o fluxo
+                System.err.println("Erro ao remover arquivo da pasta pending: " + pendingFilePath);
+            }
+
             return ResponseEntity.status(HttpStatus.CREATED).body(toDTO(saved));
         } catch (IllegalArgumentException e) {
             // Erro de validação
@@ -68,7 +135,6 @@ public class LocalServerController {
         movie.setTitle(movieDTO.getTitle());
         movie.setDescription(movieDTO.getDescription());
         movie.setCoverUrl(movieDTO.getCoverUrl());
-        movie.setVideoUrl(movieDTO.getVideoUrl());
         movie.setDurationMinutes(movieDTO.getDurationMinutes());
         movie.setReleaseYear(movieDTO.getReleaseYear());
 
@@ -105,7 +171,6 @@ public class LocalServerController {
         movie.setTitle(dto.getTitle());
         movie.setDescription(dto.getDescription());
         movie.setCoverUrl(dto.getCoverUrl());
-        movie.setVideoUrl(dto.getVideoUrl());
         movie.setDurationMinutes(dto.getDurationMinutes());
         movie.setReleaseYear(dto.getReleaseYear());
         return movie;
@@ -117,7 +182,6 @@ public class LocalServerController {
                 .title(movie.getTitle())
                 .description(movie.getDescription())
                 .coverUrl(movie.getCoverUrl())
-                .videoUrl(movie.getVideoUrl())
                 .durationMinutes(movie.getDurationMinutes())
                 .releaseYear(movie.getReleaseYear())
                 .build();
