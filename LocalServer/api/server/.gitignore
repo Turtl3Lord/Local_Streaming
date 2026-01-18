@@ -3,6 +3,8 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+src/ngix/midia/movies/**
+!src/ngix/midia/movies/.gitkeep
 
 src/test/videosDestiny/**
 !src/test/videosDestiny/.gitkeep
