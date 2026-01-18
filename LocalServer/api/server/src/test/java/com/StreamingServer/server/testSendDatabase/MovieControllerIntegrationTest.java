@@ -88,7 +88,7 @@ class MovieControllerIntegrationTest {
                 .title("Filme Exemplo")
                 .description("Descrição do filme")
                 .coverUrl("https://example.com/capa.jpg")
-                .videoUrl(videoUrl)
+
                 .durationMinutes(120)
                 .releaseYear(2023)
                 .build();

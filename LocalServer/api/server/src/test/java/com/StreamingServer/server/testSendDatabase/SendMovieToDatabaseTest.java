@@ -74,9 +74,9 @@ class SendMovieToDatabaseTest {
                 e.setTitle(dto.getTitle());
                 e.setDescription(dto.getDescription());
                 e.setCoverUrl(dto.getCoverUrl());
-                e.setVideoUrl(dto.getVideoUrl());
                 e.setDurationMinutes(dto.getDurationMinutes());
                 e.setReleaseYear(dto.getReleaseYear());
+                e.setVideoUrl("something");
                 saved.add(movieRepository.save(e));
             }
 
