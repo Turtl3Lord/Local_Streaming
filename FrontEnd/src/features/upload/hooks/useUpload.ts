@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { apiService } from '../services/api';
-import { MovieDTO } from '../types';
-import { useQueueStore } from '../store/queueStore';
+import { apiService } from '@/shared/services/api';
+import { MovieDTO } from '@/shared/types';
+import { useQueueStore } from '@/features/queue';
 
 export function useUpload() {
   const [isUploading, setIsUploading] = useState(false);

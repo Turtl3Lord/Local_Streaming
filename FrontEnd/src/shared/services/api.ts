@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
-import { MovieDTO } from '../types';
+import { MovieDTO } from '@/shared/types';
 
 const API_BASE_URL = 'http://localhost:8080';
 

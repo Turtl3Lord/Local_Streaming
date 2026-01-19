@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import { MovieDTO } from '../types';
+import { MovieDTO } from '@/shared/types';
 
 interface UploadFormProps {
   file: File;

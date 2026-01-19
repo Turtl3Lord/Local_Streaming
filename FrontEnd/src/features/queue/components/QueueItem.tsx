@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { FileVideo, X, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
-import { ProgressBar } from './ProgressBar';
-import { QueueItem as QueueItemType } from '../types';
+import { ProgressBar } from '@/shared/components';
+import { QueueItem as QueueItemType } from '@/shared/types';
 
 interface QueueItemProps {
   item: QueueItemType;

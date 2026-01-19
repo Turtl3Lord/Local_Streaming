@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Upload, ListVideo, LayoutGrid, Settings, LogOut } from 'lucide-react';
-import { View } from '../types';
+import { Upload, ListVideo, LayoutGrid } from 'lucide-react';
+import { View } from '@/shared/types';
 
 interface SidebarProps {
   currentView: View;
@@ -78,30 +78,6 @@ export function Sidebar({
             );
           })}
         </nav>
-      </div>
-
-      <div className="mt-auto p-8 border-t border-gray-50">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">
-              Alex Designer
-            </p>
-            <p className="text-xs text-gray-500 truncate">Pro Plan</p>
-          </div>
-        </div>
-        <div className="space-y-1">
-          <button className="w-full flex items-center gap-3 px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-colors">
-            <Settings className="w-4 h-4" />
-            <span>Settings</span>
-          </button>
-          <button className="w-full flex items-center gap-3 px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-colors">
-            <LogOut className="w-4 h-4" />
-            <span>Log out</span>
-          </button>
-        </div>
       </div>
     </aside>
   );

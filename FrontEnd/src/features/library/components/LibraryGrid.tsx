@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { VideoCard } from './VideoCard';
 import { Film } from 'lucide-react';
-import { LibraryItem } from '../types';
+import { LibraryItem } from '@/shared/types';
 
 interface LibraryGridProps {
   items: LibraryItem[];
@@ -26,13 +26,6 @@ export function LibraryGrid({
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-semibold text-gray-900">Your Library</h2>
-        <div className="flex gap-2">
-          <select className="text-sm border-none bg-transparent font-medium text-gray-600 focus:ring-0 cursor-pointer">
-            <option>Most Recent</option>
-            <option>Name</option>
-            <option>Size</option>
-          </select>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

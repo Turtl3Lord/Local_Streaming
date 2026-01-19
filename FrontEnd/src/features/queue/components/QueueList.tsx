@@ -1,8 +1,7 @@
-
 import { AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import { QueueItem } from './QueueItem';
-import { QueueItem as QueueItemType } from '../types';
+import { QueueItem as QueueItemType } from '@/shared/types';
 
 interface QueueListProps {
   items: QueueItemType[];

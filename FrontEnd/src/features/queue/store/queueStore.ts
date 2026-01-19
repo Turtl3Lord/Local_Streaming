@@ -1,12 +1,11 @@
 import { create } from 'zustand';
-import { QueueItem } from '../types';
+import { QueueItem } from '@/shared/types';
 
 interface QueueStore {
   queue: QueueItem[];
   addToQueue: (item: QueueItem) => void;
   updateItem: (id: string, updates: Partial<QueueItem>) => void;
   removeItem: (id: string) => void;
-  clearCompleted: () => void;
   getActiveCount: () => number;
 }
 
@@ -30,12 +29,6 @@ export const useQueueStore = create<QueueStore>((set, get) => ({
   removeItem: (id) => {
     set((state) => ({
       queue: state.queue.filter((item) => item.id !== id),
-    }));
-  },
-
-  clearCompleted: () => {
-    set((state) => ({
-      queue: state.queue.filter((item) => item.status !== 'completed'),
     }));
   },
 
