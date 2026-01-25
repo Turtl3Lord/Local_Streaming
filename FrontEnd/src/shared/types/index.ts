@@ -1,11 +1,14 @@
 export type View = 'upload' | 'queue' | 'library';
 
 export interface MovieDTO {
+  id: string;
   title: string;
   description?: string;
   coverUrl?: string;
+  videoUrl?: string;
   durationMinutes?: number;
   releaseYear?: number;
+  createdAt?: string;
 }
 
 export interface QueueItem {

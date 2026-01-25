@@ -1,16 +1,15 @@
+import { getRandomThumbnailColor } from '@/constants/colors';
 import { motion } from 'framer-motion';
 
 interface VideoCardProps {
   title: string;
-  size: string;
-  thumbnailColor: string;
+  coverUrl: string;
   date: string;
 }
 
 export function VideoCard({
   title,
-  size,
-  thumbnailColor,
+  coverUrl=getRandomThumbnailColor(),
   date
 }: VideoCardProps) {
   return (
@@ -20,7 +19,7 @@ export function VideoCard({
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       {/* Thumbnail */}
-      <div className={`aspect-video w-full ${thumbnailColor} relative flex items-center justify-center overflow-hidden`}>
+      <div className={`aspect-video w-full ${coverUrl} relative flex items-center justify-center overflow-hidden`}>
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
       </div>
 
@@ -32,7 +31,6 @@ export function VideoCard({
           </h3>
         </div>
         <div className="flex items-center text-xs text-gray-500 space-x-2">
-          <span>{size}</span>
           <span>•</span>
           <span>{date}</span>
         </div>

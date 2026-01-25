@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Layout
@@ -9,14 +9,13 @@ import { UploadZone, UploadForm, useUpload } from '@/features/upload';
 import { QueueList, useProcessingQueue, useQueueStore } from '@/features/queue';
 import { LibraryGrid } from '@/features/library';
 
-// Types & Constants
-import { View, MovieDTO, LibraryItem } from '@/shared/types';
-import { getRandomThumbnailColor } from '@/constants/colors';
+
+import { View, MovieDTO } from '@/shared/types';
+
 
 export function App() {
   const [currentView, setCurrentView] = useState<View>('upload');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [library, setLibrary] = useState<LibraryItem[]>([]);
   const { uploadMovie } = useUpload();
   const { queue, removeItem } = useProcessingQueue();
   const { getActiveCount } = useQueueStore();
@@ -41,24 +40,7 @@ export function App() {
     removeItem(id);
   };
 
-  // Mover itens completados para a biblioteca
-  useEffect(() => {
-    const completedItems = queue.filter((item) => item.status === 'completed');
-    
-    completedItems.forEach((item) => {
-      // Verificar se já não está na biblioteca
-      if (!library.find((libItem) => libItem.id === item.id)) {
-        const newLibraryItem: LibraryItem = {
-          id: item.id,
-          name: item.name,
-          size: item.size,
-          date: 'Just now',
-          color: getRandomThumbnailColor(),
-        };
-        setLibrary((prev) => [newLibraryItem, ...prev]);
-      }
-    });
-  }, [queue, library]);
+  
 
   const getHeaderTitle = () => {
     return currentView === 'upload' ? 'Upload Videos' : currentView;
@@ -112,7 +94,7 @@ export function App() {
                 transition={{ duration: 0.2 }}
                 className="h-full"
               >
-                <LibraryGrid items={library} />
+                <LibraryGrid />
               </motion.div>
             )}
           </AnimatePresence>

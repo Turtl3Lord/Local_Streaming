@@ -2,3 +2,11 @@ context/ui modelo/README.md
 FrontEnd/README.md
 .context/**
 LocalServer/api/server/src/test/resources/video/origin/**
+
+# Ignorar todos os arquivos .md
+*.md
+**/*.md
+
+# Exceto README.md
+!README.md
+!**/README.md
